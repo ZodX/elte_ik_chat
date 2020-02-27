@@ -1,0 +1,9 @@
+extends template
+
+block content
+	h1 Chat
+	input(type="file", name="image" id="image")
+
+block scripts
+	script(src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js")
+	script(src="/javascripts/socket.js")
