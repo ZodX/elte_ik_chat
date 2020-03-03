@@ -35,6 +35,12 @@ socket.on('messages', (res) => {
     console.log(res);
 });
 
+socket.on('ban', (res) => {
+    console.info('BAN');
+    console.log(res);
+    window.location.href = '/jail';
+});
+
 socket.on('image', (res) => {
     console.info('IMAGE');
     var img = document.createElement('img');
