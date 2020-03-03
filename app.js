@@ -9,6 +9,7 @@ var logger = require('morgan');
  */
 var indexRouter = require('./routes/index');
 var chatRouter = require('./routes/chat');
+var jailRouter = require('./routes/jail');
 
 var app = express();
 
@@ -28,6 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/chat', chatRouter);
+app.use('/jail', jailRouter);
 
 /**
  * Catch 404 error and forward to handler.
