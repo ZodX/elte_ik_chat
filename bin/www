@@ -6,8 +6,8 @@
 var app = require('../app');
 var debug = require('debug')('elte-ik-chat:server');
 var http = require('http');
-var Handler = require('../utilities/Handler');
-var AntiSpammer = require('../utilities/AntiSpammer');
+var Handler = require('../util/Handler');
+var AntiSpammer = require('../util/AntiSpammer');
 
 /**
  * Get port from environment and store in Express.
