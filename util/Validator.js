@@ -46,6 +46,14 @@ class Validator {
         this.messagesSchema = Joi.object({
             socketID: Joi.string().min(13).required()
         });
+
+        this.usersSchema = Joi.object({
+            socketID: Joi.string().min(13).required()
+        });
+
+        this.roomsSchema = Joi.object({
+            socketID: Joi.string().min(13).required()
+        });
     }
 
     validate(schema, data) {

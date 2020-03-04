@@ -41,6 +41,16 @@ socket.on('ban', (res) => {
     window.location.href = '/jail';
 });
 
+socket.on('users', (res) => {
+    console.info('USERS');
+    console.log(res);
+});
+
+socket.on('rooms', (res) => {
+    console.info('ROOMS');
+    console.log(res);
+});
+
 socket.on('image', (res) => {
     console.info('IMAGE');
     var img = document.createElement('img');
@@ -107,6 +117,18 @@ function captcha(captcha, where) {
 
 function messages() {
     socket.emit('messages', {
+        socketID: socket.id
+    });
+}
+
+function users() {
+    socket.emit('users', {
+        socketID: socket.id
+    });
+}
+
+function rooms() {
+    socket.emit('rooms', {
         socketID: socket.id
     });
 }

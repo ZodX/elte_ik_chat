@@ -274,6 +274,28 @@ class Handler {
                     }
                 }
             });
+
+            socket.on('users', (req) => {
+                if (this.val.validate(this.val.usersSchema, req)) {
+                    this.io.to(`${socket.id}`).emit('users', {
+                        users: this.users.values()
+                    });
+                }
+            });
+
+            socket.on('rooms', (req) => {
+                if (this.val.validate(this.val.roomsSchema, req)) {
+                    const availableRooms = [];
+                    this.rooms.forEach((value, key) => {
+                        const availableRoom = {};
+                        availableRoom.name = key;
+                        availableRoom.users = value.users;
+                        availableRooms.push(availableRoom);
+                    });
+
+                    this.io.to(`${socket.id}`).emit('rooms', availableRooms);
+                }
+            });
         });
 
         // setInterval(() => {
