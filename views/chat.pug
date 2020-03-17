@@ -1,9 +1,45 @@
 extends template
 
+block scripts
+	script(src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js")
+	script(src="/javascripts/socket.js")
+
+block styles	
+	link(rel="stylesheet", href="stylesheets/chat.css")
+	link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
+
 block content
 	h1 Chat
 	input(type="file", name="image" id="image")
 
-block scripts
-	script(src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js")
-	script(src="/javascripts/socket.js")
+	div(class = "container")
+		div(class = "row-rooms")
+			div(class = "title") Available rooms
+			div(class = "rooms")
+				div(class="room-drawer") room-example
+				
+		div(class="row-chat")
+			div(class="title") Room name
+			div(class="chat-panel")
+				div(class="chat-bubble-left")
+					div(class="content") left
+				div(class="chat-bubble-right")
+					div(class="content") This is my message to the whole world out there
+				div(class="chat-bubble-left")
+					div(class="content") Aaaand this is my response for the message u sent 
+				div(class="chat-bubble-left")
+					div(class="content") Aaaand this is my response for the message u sent
+				div(class="chat-bubble-left")
+					div(class="content") Aaaand this is my response for the message u sent
+				div(class="chat-bubble-left")
+					div(class="content") Aaaand thiasdasdasds is my response for the message u sent
+			
+			div(class="sendline")
+				i(class="material-icons") sentiment_very_satisfied 
+				i(class="material-icons") image
+				div(class="sendtext")
+					input(class="input" type="text")
+				i(class="material-icons") send
+				
+
+		

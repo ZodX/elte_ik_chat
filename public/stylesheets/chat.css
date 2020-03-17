@@ -1,0 +1,101 @@
+.container {
+    margin: 5vh auto;
+    width: 100vw;
+    height: 75vh;
+    border: thin solid black;
+    padding: 0;
+    display: flex;
+    border-radius: 7px;
+    border: thin solid red;
+}
+
+.row-rooms {
+    width: 30vw;
+    display: inline-block;
+    border-right: thin solid black;
+}
+
+.title {
+    height: 10%;
+    background-color: lightgrey;
+    width: 100%;
+    text-align: center;
+}
+
+.rooms {
+    display: inline-block;
+    width: 100%;
+}
+
+.room-drawer {
+    background-color: black;
+    color: limegreen;
+    height: 10vh;
+}
+
+.room-drawer:hover {
+    background-color: pink;
+}
+
+.row-chat {
+    width: 70vw;
+    background-color: white;
+}
+
+.chat-panel {
+    overflow-y: scroll;
+    height: 90%;
+    padding-bottom: 7.5%;
+}
+
+.chat-bubble-left, .chat-bubble-right {
+    border-collapse: collapse;
+    display: flex;
+}
+
+.chat-bubble-left {
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.chat-bubble-right {
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.content {
+    padding: 10px 14px;
+    background-color: blue;
+    color: white;
+    margin: 10px 30px;
+    border-radius: 9px;
+    max-width: 30%;
+    width: fit-content;
+    text-align: left;
+    word-wrap: break-word;
+}
+
+.sendline {
+    background-color: lightgrey;
+    position: relative;
+    height: 7.5%;
+    bottom: 7.5%;
+    display: flex;
+    align-items: center;
+}
+
+.sendtext {
+    width: 100%;
+    text-align: center;
+}
+
+.input {
+    width: 100%;
+    border-radius: 7px;
+    text-align: left;
+}
+
+i {
+    padding-left: 10px;
+    padding-right: 10px;
+}
