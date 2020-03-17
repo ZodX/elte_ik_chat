@@ -16,6 +16,7 @@
 		"express": "~4.16.1",
 		"hashmap": "^2.4.0",
 		"http-errors": "~1.6.3",
+		"minimist": "^1.2.5",
 		"morgan": "~1.9.1",
 		"pug": "^2.0.4",
 		"socket-anti-spam": "^2.0.0",
