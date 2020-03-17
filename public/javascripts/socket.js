@@ -13,6 +13,17 @@ socket.on('quit', (res) => {
 socket.on('message', (res) => {
     console.info('MESSAGE');
     console.log(res);
+
+    
+    var p = document.createElement("p");
+    var node = document.createTextNode(res.message);
+    p.appendChild(node);
+
+    var div = document.getElementById("demo");
+    div.appendChild(p);
+
+    //div.innerHTML = `<div class="msg">${msg}</div>`;
+    
 });
 
 socket.on('nickname', (res) => {

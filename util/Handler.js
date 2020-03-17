@@ -298,12 +298,12 @@ class Handler {
             });
         });
 
-        // setInterval(() => {
-        //     console.clear();
-        //     console.log(this.users.entries());
-        //     console.log(this.rooms.keys());
-        //     console.log(this.rooms.values());
-        // }, 1000);
+        setInterval(() => {
+            console.clear();
+            console.log(this.users.entries());
+            console.log(this.rooms.keys());
+            console.log(this.rooms.values());
+        }, 1000);
     }
 }
 module.exports = Handler;

@@ -10,11 +10,11 @@ router.get('/', function (req, res) {
     let nickname = req.query.nickname;
     if (nickname != null && nickname != undefined && nickname != '') {
         res.render('chat', {
-            title: 'ELTE-IK - CHAT'
+            title: 'CHAT'
         });
     } else {
         res.render('index', {
-            title: 'ELTE-IK - LOGIN',
+            title: 'LOGIN',
             error: 'The nickname must be at least 1 character long.'
         });
     }
