@@ -6,7 +6,7 @@ class AntiSpammer {
         this.bans = [];
         this.socketAntiSpam = new SocketAntiSpam({
             banTime: 30, // Ban time in minutes
-            kickThreshold: 2, // User gets kicked after this many spam score
+            kickThreshold: 20, // User gets kicked after this many spam score
             kickTimesBeforeBan: 0, // User gets banned after this many kicks
             banning: true, // Uses temp IP banning after kickTimesBeforeBan
             io: io
