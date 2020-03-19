@@ -1,3 +1,7 @@
+body {
+    font-family: 'Courier New', Courier, monospace;
+}
+
 .container {
     margin: 5vh auto;
     width: 100vw;
@@ -21,11 +25,23 @@
     text-align: center;
 }
 
+#title {
+    height: 10%;
+    background-color: #ffd61dd1;
+    width: 100%;
+    text-align: center;
+}
+
 .rooms {
     display: inline-block;
     width: 100%;
     overflow-y: scroll;
-    height: 90%;
+    height: 80%;
+    border: thin solid green;
+}
+
+.newRoomCreation {
+    height: 10%;
 }
 
 .room-drawer {
@@ -45,6 +61,16 @@
 .room-button {
     width: 20%;
     text-align: center;
+}
+
+
+#newRoomOption {
+
+    text-align: center;
+}
+
+#newRoom {
+    text-align: left;
 }
 
 i {
@@ -67,15 +93,7 @@ i:hover {
     overflow-y: scroll;
     height: 90%;
     padding-bottom: 7.5%;
-}
-
-/* HELPER */
-.nickname, .content, .chat-bubble-left, .chat-bubble-right {
-    border: thin solid red;
-}
-
-.nickname, .content {
-    display: flex;
+    scroll-behavior: smooth;
 }
 
 .chat-bubble-left, .chat-bubble-right {
@@ -106,6 +124,18 @@ i:hover {
     word-wrap: break-word;
 }
 
+.image {
+    height: 100%;
+    width: 100%;
+}
+
+.event {
+    width: 100%;
+    text-align: center;
+    color: grey;
+    font: outline;
+}
+
 .sendline {
     /* background-color: #9FC131FF; */
     position: relative;
@@ -124,4 +154,5 @@ i:hover {
     width: 100%;
     border-radius: 7px;
     text-align: left;
+    padding-left: 5px;
 }
