@@ -1,75 +1,36 @@
 const socket = io();
+var input;
+var newRoomInput;
 var nickname = "Unknown";
 var availableRooms = null;
 var availableUsers = null;
 var myPersonalID = null;
-var recievedMessage = null;
-var newRoom = null;
+var puffer = null;
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    input = document.getElementsByClassName('input')[0];
+
+    input.addEventListener('keyup', (event) => {
+        /**
+         * Enter
+         */
+        if (event.keyCode == 13) {
+            message(input.value);
+            input.value = "";
+        }
+    });    
+
+});
+
 
 socket.on('connect', () => {
     rooms();
+    nickname = getUrlParameter('nickname');
+    join('Lobby', nickname);
 });
 
-function getParameter(property) {
-    const url = new URL(window.location.href);
-    const p = url.searchParams.get(property);
-    return p;
-}
-
-function makeRooms() {
-    const rooms = document.getElementsByClassName("rooms")[0];
-    var drawer = "";
-    rooms.innerHTML = "";
-    for (var room of availableRooms) {
-        drawer = `
-                    <div class="room-drawer" onclick="">
-                        <div class="room-name">${room.name}</div>
-                        <div class="room-button">
-                            <i class="material-icons">add_circle_outline</i>
-                        </div>
-                    </div>
-                `;
-        rooms.innerHTML += drawer;
-    }
-}
-
-function makeMessages() {
-    const chat_panel = document.getElementsByClassName("chat-panel")[0];
-    var bubble = "";
-    chat_panel.innerHTML = "";
-    for (var bub of messageHistory.messages) {
-        bubble = `
-                    <div class="chat-bubble-left">
-                        <div class="content">${bub.message}</div>
-                    </div>
-                `;
-
-        chat_panel.innerHTML += bubble;
-    }
-}
-
-function makeMessage() {
-    const chat_panel = document.getElementsByClassName("chat-panel")[0];
-    var bubble = "";
-    if (myPersonalID == recievedMessage.personalID) {
-        bubble = `
-                    <div class="chat-bubble-right">
-                        <div class="content">${recievedMessage.message}</div>
-                    </div>
-                `;
-    } else {
-        bubble = `
-                    <div class="chat-bubble-left">
-                        <div class="content">${recievedMessage.message}</div>
-                    </div>
-                `;
-    }
-
-    chat_panel.innerHTML += bubble;
-}
-
 socket.on('personalID', (res) => {
-
     console.log(res);
     myPersonalID = res.personalID;
 });
@@ -80,23 +41,28 @@ socket.on('join', (res) => {
     if (res.personalID == myPersonalID) {
         messages();
     }
-    console.log(res);
+    puffer = res;
+    setRoomName();
+    eventJoin();
 });
 
 socket.on('quit', (res) => {
     console.info('QUIT');
+    puffer = res;
     rooms();
+    eventQuit();
 });
 
 socket.on('message', (res) => {
-    console.info('MESSAGE');
-    console.log(res);
-    recievedMessage = res;
+    console.info('MESSAGE');;
+    puffer = res;
     makeMessage();
 });
 
 socket.on('nickname', (res) => {
     console.info('NICKNAME');
+    puffer = res;
+    eventNickname();
 });
 
 socket.on('private', (res) => {
@@ -133,11 +99,11 @@ socket.on('refresh', () => {
     rooms();
 });
 
+
 socket.on('image', (res) => {
     console.info('IMAGE');
-    var img = document.createElement('img');
-    img.setAttribute('src', res.data);
-    document.body.appendChild(img);
+    puffer = res;
+    makeImageMessage(res.data);
 });
 
 function users() {
@@ -167,7 +133,7 @@ function message(message) {
     });
 }
 
-function nickname(nickname) {
+function changeNickname(nickname) {
     socket.emit('nickname', {
         socketID: socket.id,
         new: nickname
@@ -213,4 +179,165 @@ function messages() {
     socket.emit('messages', {
         socketID: socket.id
     });
+}
+
+function getUrlParameter(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+};
+
+function getParameter(property) {
+    const url = new URL(window.location.href);
+    const p = url.searchParams.get(property);
+    return p;
+}
+
+function makeMessages() {
+    const chat_panel = document.getElementsByClassName("chat-panel")[0];
+    var bubble = "";
+    chat_panel.innerHTML = "";
+    for (var bub of messageHistory.messages) {
+        bubble = `
+        <div class="chat-bubble-left">
+        <div class="content">${bub.message}</div>
+        </div>
+        `;
+        
+        chat_panel.innerHTML += bubble;
+    }
+}
+
+function makeRooms() {
+    const rooms = document.getElementsByClassName("rooms")[0];
+    var drawer = "";
+    rooms.innerHTML = "";
+    for (var croom of availableRooms) {
+        drawer = `
+        <div class="room-drawer">
+        <div class="room-name">${croom.name}</div>
+        <div class="room-button">
+        <i class="material-icons" onclick='room("${croom.name}","${nickname}")'>add_circle_outline</i>
+        </div>
+        </div>
+        `;
+        rooms.innerHTML += drawer;
+    }
+    
+    newRoomInput = document.getElementById('newRoomName');
+    newRoomInput.addEventListener('keyup', (event) => {
+        /**
+         * Enter
+         */
+        if (event.keyCode == 13) {
+            room(newRoomInput.value);
+            newRoomInput.value = '';
+        }
+    });
+    
+}
+
+function setRoomName() {
+    var title = document.getElementById("title");
+    if (puffer.personalID == myPersonalID)
+    title.innerHTML = `${puffer.room}`;
+}
+
+function sendMessage() {
+    var input = document.getElementsByClassName("input")[0];
+    message(input.value);
+    input.value = "";
+}
+
+function newRoom() {
+    
+    var avRooms = [];
+    for (croom in availableRooms) {
+        avRooms.push(croom.name);
+    }
+    
+    if (document.getElementById("newRoomName").value in avRooms)
+    alert("Room already exists.")
+    else
+    room(document.getElementById('newRoomName').value);
+}
+
+function makeMessage() {
+    const chat_panel = document.getElementsByClassName("chat-panel")[0];
+    var msg = "";
+    if (myPersonalID == puffer.personalID) {
+        msg = `
+        <div class="chat-bubble-right">
+        <div class="content">${puffer.message}</div>
+        </div>
+        `;
+    } else {
+        msg = `
+        <div class="chat-bubble-left">
+        <div id="nickname">${puffer.nickname}</div>
+        <div class="content">${puffer.message}</div>
+        </div>
+        `;
+    }
+    chat_panel.innerHTML += msg;
+    chat_panel.scroll(0, chat_panel.scrollHeight);
+}
+
+function makeImageMessage(data) {
+    const chat_panel = document.getElementsByClassName("chat-panel")[0];
+    var msg = "";
+    if (myPersonalID == puffer.personalID) {
+        msg = `
+        <div class="chat-bubble-right">
+        <div class="content">
+        <img class="image" src="${data}" alt="Image">
+        </div>
+        </div>
+        `;
+    } else {
+        msg = `
+        <div class="chat-bubble-left">
+        <div class="content">
+        <div id="nickname">${puffer.nickname}</div>
+        <img class="image" src="${data}" alt="Image">
+        </div>
+        </div>
+        `;
+    }
+    chat_panel.innerHTML += msg;
+    chat_panel.scroll(0, chat_panel.scrollHeight);
+}
+
+function eventJoin() {
+    const chat_panel = document.getElementsByClassName("chat-panel")[0];
+    var drawer = `
+                    <div class="event">
+                        ${puffer.nickname} joined to the room.
+                    </div>
+                `;
+
+    chat_panel.innerHTML += drawer;
+}
+
+function eventQuit() {
+    const chat_panel = document.getElementsByClassName("chat-panel")[0];
+    var drawer = `
+                    <div class="event">
+                        ${puffer.nickname} left the room.
+                    </div>
+                `;
+
+    chat_panel.innerHTML += drawer;
+}
+
+function eventNickname() {
+    const chat_panel = document.getElementsByClassName("chat-panel")[0];
+    var drawer = `
+                    <div class="event">
+                        ${puffer.old} has changed it's nickname to ${puffer.new}.
+                    </div>
+                `;
+
+    chat_panel.innerHTML += drawer;
 }
