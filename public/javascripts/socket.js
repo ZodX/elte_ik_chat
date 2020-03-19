@@ -1,65 +1,136 @@
 const socket = io();
+var nickname = "Unknown";
+var availableRooms = null;
+var availableUsers = null;
+var myPersonalID = null;
+var recievedMessage = null;
+var newRoom = null;
+
+socket.on('connect', () => {
+    rooms();
+});
+
+function getParameter(property) {
+    const url = new URL(window.location.href);
+    const p = url.searchParams.get(property);
+    return p;
+}
+
+function makeRooms() {
+    const rooms = document.getElementsByClassName("rooms")[0];
+    var drawer = "";
+    rooms.innerHTML = "";
+    for (var room of availableRooms) {
+        drawer = `
+                    <div class="room-drawer" onclick="">
+                        <div class="room-name">${room.name}</div>
+                        <div class="room-button">
+                            <i class="material-icons">add_circle_outline</i>
+                        </div>
+                    </div>
+                `;
+        rooms.innerHTML += drawer;
+    }
+}
+
+function makeMessages() {
+    const chat_panel = document.getElementsByClassName("chat-panel")[0];
+    var bubble = "";
+    chat_panel.innerHTML = "";
+    for (var bub of messageHistory.messages) {
+        bubble = `
+                    <div class="chat-bubble-left">
+                        <div class="content">${bub.message}</div>
+                    </div>
+                `;
+
+        chat_panel.innerHTML += bubble;
+    }
+}
+
+function makeMessage() {
+    const chat_panel = document.getElementsByClassName("chat-panel")[0];
+    var bubble = "";
+    if (myPersonalID == recievedMessage.personalID) {
+        bubble = `
+                    <div class="chat-bubble-right">
+                        <div class="content">${recievedMessage.message}</div>
+                    </div>
+                `;
+    } else {
+        bubble = `
+                    <div class="chat-bubble-left">
+                        <div class="content">${recievedMessage.message}</div>
+                    </div>
+                `;
+    }
+
+    chat_panel.innerHTML += bubble;
+}
+
+socket.on('personalID', (res) => {
+
+    console.log(res);
+    myPersonalID = res.personalID;
+});
 
 socket.on('join', (res) => {
     console.info('JOIN');
+    rooms();
+    if (res.personalID == myPersonalID) {
+        messages();
+    }
     console.log(res);
 });
 
 socket.on('quit', (res) => {
     console.info('QUIT');
-    console.log(res);
+    rooms();
 });
 
 socket.on('message', (res) => {
     console.info('MESSAGE');
     console.log(res);
-
-    
-    var p = document.createElement("p");
-    var node = document.createTextNode(res.message);
-    p.appendChild(node);
-
-    var div = document.getElementById("demo");
-    div.appendChild(p);
-
-    //div.innerHTML = `<div class="msg">${msg}</div>`;
-    
+    recievedMessage = res;
+    makeMessage();
 });
 
 socket.on('nickname', (res) => {
     console.info('NICKNAME');
-    console.log(res);
 });
 
 socket.on('private', (res) => {
     console.info('PRIVATE');
-    console.log(res);
 });
 
 socket.on('captcha', (res) => {
     console.info('CAPTCHA');
-    console.log(res);
 });
 
 socket.on('messages', (res) => {
     console.info('MESSAGES');
-    console.log(res);
+    messageHistory = res;
+    console.log(messageHistory);
+    makeMessages();
 });
 
 socket.on('ban', (res) => {
     console.info('BAN');
-    console.log(res);
     window.location.href = '/jail';
 });
 
 socket.on('users', (res) => {
     console.info('USERS');
-    console.log(res);
 });
 
 socket.on('rooms', (res) => {
     console.info('ROOMS');
-    console.log(res);
+    availableRooms = res;
+    makeRooms();
+});
+
+socket.on('refresh', () => {
+    rooms();
 });
 
 socket.on('image', (res) => {
@@ -68,6 +139,18 @@ socket.on('image', (res) => {
     img.setAttribute('src', res.data);
     document.body.appendChild(img);
 });
+
+function users() {
+    socket.emit('users', {
+        socketID: socket.id
+    });
+}
+
+function rooms() {
+    socket.emit('rooms', {
+        socketID: socket.id
+    });
+}
 
 function join(room, nickname) {
     socket.emit('join', {
@@ -128,18 +211,6 @@ function captcha(captcha, where) {
 
 function messages() {
     socket.emit('messages', {
-        socketID: socket.id
-    });
-}
-
-function users() {
-    socket.emit('users', {
-        socketID: socket.id
-    });
-}
-
-function rooms() {
-    socket.emit('rooms', {
         socketID: socket.id
     });
 }
