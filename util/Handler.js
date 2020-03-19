@@ -18,12 +18,14 @@ class Handler {
             socket.on('join', (req) => {
                 if (this.val.validate(this.val.joinSchema, req)) {
                     if (this.users.get(req.socketID) == null) {
+                        var personalID;
                         if (this.rooms.get(req.room) == null) {
                             /**
                              * Empty room
                              */
                             var room = new Room();
                             var user = new User(req.nickname);
+                            personalID = user.getPersonalID();
 
                             room.addUser(user.getPersonalID());
                             this.rooms.set(req.room, room);
@@ -34,12 +36,14 @@ class Handler {
                                 nickname: req.nickname,
                                 personalID: user.getPersonalID()
                             });
+                            this.io.emit('refresh');
                         } else {
                             /**
                              * Room exists
                              */
                             room = this.rooms.get(req.room);
                             user = new User(req.nickname);
+                            personalID = user.getPersonalID();
 
                             room.addUser(user.getPersonalID());
                             this.users.set(req.socketID, user);
@@ -50,6 +54,9 @@ class Handler {
                                 personalID: user.getPersonalID()
                             });
                         }
+                        this.io.to(`${req.socketID}`).emit('personalID', {
+                            personalID: personalID
+                        });
                     }
                 }
             });
@@ -71,6 +78,7 @@ class Handler {
                              */
                             if (room.length() == 0 && !this.defaultRooms.includes(roomName)) {
                                 this.rooms.remove(roomName);
+                                this.io.emit('refresh');
                             }
                         }
                     }
@@ -176,6 +184,7 @@ class Handler {
                                     nickname: user.getNickname(),
                                     personalID: user.getPersonalID()
                                 });
+                                this.io.emit('refresh');
                             } else {
                                 /**
                                  * Room exists
@@ -293,7 +302,7 @@ class Handler {
                         availableRooms.push(availableRoom);
                     });
 
-                    this.io.to(`${socket.id}`).emit('rooms', availableRooms);
+                    this.io.to(`${req.socketID}`).emit('rooms', availableRooms);
                 }
             });
         });
