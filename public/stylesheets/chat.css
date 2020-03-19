@@ -6,7 +6,6 @@
     padding: 0;
     display: flex;
     border-radius: 7px;
-    border: thin solid red;
 }
 
 .row-rooms {
@@ -17,7 +16,7 @@
 
 .title {
     height: 10%;
-    background-color: lightgrey;
+    background-color: #ffd61dd1;
     width: 100%;
     text-align: center;
 }
@@ -25,27 +24,58 @@
 .rooms {
     display: inline-block;
     width: 100%;
+    overflow-y: scroll;
+    height: 90%;
 }
 
 .room-drawer {
     background-color: black;
     color: limegreen;
     height: 10vh;
+    display: flex;
+    position: relative;
+    align-items: center;
 }
 
-.room-drawer:hover {
-    background-color: pink;
+.room-name {
+    width: 80%;
+    text-align: center;
+}
+
+.room-button {
+    width: 20%;
+    text-align: center;
+}
+
+i {
+    padding-left: 10px;
+    padding-right: 10px;
+    transition: .3s;
+}
+
+i:hover {
+    color: red;
+    cursor: pointer;
 }
 
 .row-chat {
     width: 70vw;
-    background-color: white;
+    background-image: url("/images/chat_background.png");
 }
 
 .chat-panel {
     overflow-y: scroll;
     height: 90%;
     padding-bottom: 7.5%;
+}
+
+/* HELPER */
+.nickname, .content, .chat-bubble-left, .chat-bubble-right {
+    border: thin solid red;
+}
+
+.nickname, .content {
+    display: flex;
 }
 
 .chat-bubble-left, .chat-bubble-right {
@@ -56,6 +86,7 @@
 .chat-bubble-left {
     align-items: center;
     justify-content: flex-start;
+    display: flex;
 }
 
 .chat-bubble-right {
@@ -65,8 +96,8 @@
 
 .content {
     padding: 10px 14px;
-    background-color: blue;
-    color: white;
+    background-color: #28334AFF;
+    color: #FBDE44FF;
     margin: 10px 30px;
     border-radius: 9px;
     max-width: 30%;
@@ -76,7 +107,7 @@
 }
 
 .sendline {
-    background-color: lightgrey;
+    /* background-color: #9FC131FF; */
     position: relative;
     height: 7.5%;
     bottom: 7.5%;
@@ -93,9 +124,4 @@
     width: 100%;
     border-radius: 7px;
     text-align: left;
-}
-
-i {
-    padding-left: 10px;
-    padding-right: 10px;
 }
