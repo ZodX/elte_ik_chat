@@ -17,21 +17,25 @@ block content
 
 		//Left side
 		div(class = "row-rooms")
-			div(class = "title") Available rooms
+			div(class = "title") 
+				div(class="contentTitle") Available rooms
 			div(class = "newRoomCreation")
 				div(class = "newRoom") Create new room
 				input(id="newRoomName")
 				i(class = "material-icons" onclick="newRoom()") add_circle_outline
 			div(class = "rooms")
+			div(class="usersPanelOpener" ) 
+				i(class="material-icons") people_outline
 	
 		//Right side
 		div(class="row-chat")
-			div(id="title") Lobby
+			div(id="title") 
+				div(class="contentTitle") Lobby
 			div(class="chat-panel")
 
 			div(class="sendline")
 				i(class="material-icons") sentiment_very_satisfied 
-				i(class="material-icons") image
+				i(class="material-icons" onclick="") image
 				div(class="sendtext")
 					input(class="input" type="text" placeholder="Type your message here...")
 				i(class="material-icons" onclick="sendMessage()") send
