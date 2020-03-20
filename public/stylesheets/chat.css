@@ -23,20 +23,25 @@ body {
     background-color: #ffd61dd1;
     width: 100%;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #title {
     height: 10%;
     background-color: #ffd61dd1;
     width: 100%;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .rooms {
     display: inline-block;
     width: 100%;
     overflow-y: scroll;
-    height: 80%;
+    height: 70%;
     border: thin solid green;
 }
 
@@ -63,7 +68,6 @@ body {
     text-align: center;
 }
 
-
 #newRoomOption {
 
     text-align: center;
@@ -71,6 +75,14 @@ body {
 
 #newRoom {
     text-align: left;
+}
+
+.usersPanelOpener {
+    height: 10%;
+    border: thin solid red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 i {
