@@ -38,9 +38,13 @@ socket.on('personalID', (res) => {
 socket.on('join', (res) => {
     console.info('JOIN');
     rooms();
-    if (res.personalID == myPersonalID) {
-        messages();
-    }
+
+    if (res.personalID == myPersonalID && res.room == 'Lobby')
+        clearMessages()
+    else 
+        if (res.personalID == myPersonalID) 
+            messages();
+
     puffer = res;
     setRoomName();
     eventJoin();
@@ -76,7 +80,6 @@ socket.on('captcha', (res) => {
 socket.on('messages', (res) => {
     console.info('MESSAGES');
     messageHistory = res;
-    console.log(messageHistory);
     makeMessages();
 });
 
@@ -312,32 +315,40 @@ function makeImageMessage(data) {
 function eventJoin() {
     const chat_panel = document.getElementsByClassName("chat-panel")[0];
     var drawer = `
-                    <div class="event">
-                        ${puffer.nickname} joined to the room.
-                    </div>
-                `;
-
+    <div class="event">
+    ${puffer.nickname} joined to the room.
+    </div>
+    `;
+    
     chat_panel.innerHTML += drawer;
+    chat_panel.scroll(0, chat_panel.scrollHeight);
 }
 
 function eventQuit() {
     const chat_panel = document.getElementsByClassName("chat-panel")[0];
     var drawer = `
-                    <div class="event">
-                        ${puffer.nickname} left the room.
-                    </div>
-                `;
-
+    <div class="event">
+    ${puffer.nickname} left the room.
+    </div>
+    `;
+    
     chat_panel.innerHTML += drawer;
+    chat_panel.scroll(0, chat_panel.scrollHeight);
 }
 
 function eventNickname() {
     const chat_panel = document.getElementsByClassName("chat-panel")[0];
     var drawer = `
-                    <div class="event">
-                        ${puffer.old} has changed it's nickname to ${puffer.new}.
-                    </div>
-                `;
-
+    <div class="event">
+    ${puffer.old} has changed it's nickname to ${puffer.new}.
+    </div>
+    `;
+    
     chat_panel.innerHTML += drawer;
+    chat_panel.scroll(0, chat_panel.scrollHeight);
+}
+
+function clearMessages() {
+    const chat_panel = document.getElementsByClassName("chat-panel")[0];
+    chat_panel.innerHTML = ``;
 }
