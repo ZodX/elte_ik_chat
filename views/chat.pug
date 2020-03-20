@@ -1,9 +1,44 @@
 extends template
 
+block scripts
+	script(src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js")
+	script(src="/javascripts/socket.js")
+	script(src="/javascripts/chat.js")
+
+block styles	
+	link(rel="stylesheet", href="stylesheets/chat.css")
+	link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
+
 block content
 	h1 Chat
 	input(type="file", name="image" id="image")
 
-block scripts
-	script(src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js")
-	script(src="/javascripts/socket.js")
+	div(class = "container")
+
+		//Left side
+		div(class = "row-rooms")
+			div(class = "title") 
+				div(class="contentTitle") Available rooms
+			div(class = "newRoomCreation")
+				div(class = "newRoom") Create new room
+				input(id="newRoomName")
+				i(class = "material-icons" onclick="newRoom()") add_circle_outline
+			div(class = "rooms")
+			div(class="usersPanelOpener" ) 
+				i(class="material-icons") people_outline
+	
+		//Right side
+		div(class="row-chat")
+			div(id="title") 
+				div(class="contentTitle") Lobby
+			div(class="chat-panel")
+
+			div(class="sendline")
+				i(class="material-icons") sentiment_very_satisfied 
+				i(class="material-icons" onclick="") image
+				div(class="sendtext")
+					input(class="input" type="text" placeholder="Type your message here...")
+				i(class="material-icons" onclick="sendMessage()") send
+				
+
+		

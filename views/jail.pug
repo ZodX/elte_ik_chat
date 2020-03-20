@@ -1,4 +1,10 @@
 extends template
 
 block content
-	h1 Jail
+	canvas(id="stage" width="400" height="400")
+
+block scripts
+	script(src="/javascripts/jail.js")
+
+block styles
+	link(rel="stylesheet", href="/stylesheets/jail.css")
