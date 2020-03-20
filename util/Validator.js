@@ -17,7 +17,7 @@ class Validator {
 
         this.nicknameSchema = Joi.object({
             socketID: Joi.string().min(13).required(),
-            new: Joi.string().max(100).required()
+            new: Joi.string().max(20).required()
         });
 
         this.roomSchema = Joi.object({
