@@ -1,0 +1,13 @@
+{
+    "name": "Anonymous Chat",
+    "short_name": "Chat",
+    "start_url": ".",
+    "display": "fullscreen",
+    "background_color": "#fff",
+    "description": "An anonymous chat app based on websocket.",
+    "icons": [{
+        "src": "/images/chat_icon.png",
+        "sizes": "256x256",
+        "type": "image/png"
+    }]
+}
