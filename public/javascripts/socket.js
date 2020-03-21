@@ -19,7 +19,15 @@ document.addEventListener('DOMContentLoaded', () => {
             message(input.value);
             input.value = "";
         }
-    });    
+    });
+
+    document.getElementById('media').addEventListener('click', () => {
+        document.getElementById('image').click();
+    });
+
+    document.getElementById('image').addEventListener('change', () => {
+        image();
+    });
 
 });
 
@@ -41,9 +49,9 @@ socket.on('join', (res) => {
 
     if (res.personalID == myPersonalID && res.room == 'Lobby')
         clearMessages()
-    else 
-        if (res.personalID == myPersonalID) 
-            messages();
+    else
+    if (res.personalID == myPersonalID)
+        messages();
 
     puffer = res;
     setRoomName();
@@ -90,6 +98,9 @@ socket.on('ban', (res) => {
 
 socket.on('users', (res) => {
     console.info('USERS');
+    puffer = res;
+    console.log(res);
+    drawUsers();
 });
 
 socket.on('rooms', (res) => {
@@ -102,12 +113,12 @@ socket.on('refresh', () => {
     rooms();
 });
 
-
 socket.on('image', (res) => {
     console.info('IMAGE');
     puffer = res;
     makeImageMessage(res.data);
 });
+
 
 function users() {
     socket.emit('users', {
@@ -207,7 +218,7 @@ function makeMessages() {
         <div class="content">${bub.message}</div>
         </div>
         `;
-        
+
         chat_panel.innerHTML += bubble;
     }
 }
@@ -220,14 +231,14 @@ function makeRooms() {
         drawer = `
         <div class="room-drawer">
         <div class="room-name">${croom.name}</div>
-        <div class="room-button">
-        <i class="material-icons" onclick='room("${croom.name}","${nickname}")'>add_circle_outline</i>
-        </div>
-        </div>
+            <div class="room-button">
+            <i class="material-icons" onclick='room("${croom.name}","${nickname}")'>add_circle_outline</i>
+            </div>
+            </div>
         `;
         rooms.innerHTML += drawer;
     }
-    
+
     newRoomInput = document.getElementById('newRoomName');
     newRoomInput.addEventListener('keyup', (event) => {
         /**
@@ -238,14 +249,14 @@ function makeRooms() {
             newRoomInput.value = '';
         }
     });
-    
+
 }
 
 function setRoomName() {
     var title = document.getElementById("title");
     if (puffer.personalID == myPersonalID)
-    title.innerHTML = `${puffer.room}`;
-}
+        title.innerHTML = `${puffer.room}`;
+    }
 
 function sendMessage() {
     var input = document.getElementsByClassName("input")[0];
@@ -259,9 +270,9 @@ function newRoom() {
     for (croom in availableRooms) {
         avRooms.push(croom.name);
     }
-    
+
     if (document.getElementById("newRoomName").value in avRooms)
-    alert("Room already exists.")
+        alert("Room already exists.")
     else
     room(document.getElementById('newRoomName').value);
 }
@@ -319,7 +330,7 @@ function eventJoin() {
     ${puffer.nickname} joined to the room.
     </div>
     `;
-    
+
     chat_panel.innerHTML += drawer;
     chat_panel.scroll(0, chat_panel.scrollHeight);
 }
@@ -331,7 +342,7 @@ function eventQuit() {
     ${puffer.nickname} left the room.
     </div>
     `;
-    
+
     chat_panel.innerHTML += drawer;
     chat_panel.scroll(0, chat_panel.scrollHeight);
 }
@@ -343,7 +354,7 @@ function eventNickname() {
     ${puffer.old} has changed it's nickname to ${puffer.new}.
     </div>
     `;
-    
+
     chat_panel.innerHTML += drawer;
     chat_panel.scroll(0, chat_panel.scrollHeight);
 }
@@ -351,4 +362,47 @@ function eventNickname() {
 function clearMessages() {
     const chat_panel = document.getElementsByClassName("chat-panel")[0];
     chat_panel.innerHTML = ``;
+}
+
+function changeList() {
+    const ctitle = document.getElementsByClassName("title")[0];
+    const cusers = document.getElementsByClassName("users")[0];
+    const crooms = document.getElementsByClassName("rooms")[0];
+    const cnewRoomCreation = document.getElementsByClassName("newRoomCreation")[0];
+
+
+    if (ctitle.innerText == "Available rooms") {
+        ctitle.innerText = "Online users";
+        cnewRoomCreation.style.display = "none";
+        crooms.style.display = "none";
+        cusers.style.display = "block";
+        cusers.style.height = "80%";
+        users();
+    } else {
+        ctitle.innerText = "Available rooms";
+        cnewRoomCreation.style.display = "block";
+        crooms.style.display = "block";
+        cusers.style.display = "none";
+        rooms();
+    }
+    console.log(ctitle.innerText);
+}
+
+function drawUsers() {
+    const users = document.getElementsByClassName("users")[0];
+    users.innerHTML = "";
+    var drawer = "";
+    var cuser = null;
+    console.log(puffer);
+    for (cuser of puffer.users) {
+        drawer = `
+                    <div class="user-drawer">
+                        <div class="user-name">${cuser.nickname}</div>
+                        <div class="user-button">
+                            <i class="material-icons">lock</i>
+                        </div>
+                    </div>
+                `;
+        users.innerHTML += drawer;
+    }
 }
