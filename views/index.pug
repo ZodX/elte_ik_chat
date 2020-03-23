@@ -4,10 +4,11 @@ block styles
 	link(rel="stylesheet", href="/stylesheets/index.css")
 
 block content
-		#login-container.container-fluid.d-flex.flex-column.align-items-center
-		#login-box.rounded
-				h1(id="title")= title
-				h3(id="error")= error
+		//- #login-container.container-fluid.d-flex.flex-column.align-items-center
+		#login-box.login-wrapper
+			.login-container
 				form(id="form" method='GET' action='/chat')
-					input(id="input-nickname" type='text' name='nickname')
-					input(id="input-submit" type='submit' value='Login to the chat')
+					h1.title(id="title") ELTE IK Chat
+					h3(id="error")= error
+					input(id="input-nickname" type='text' name='nickname' autofocus placeholder="Please enter your nickname")
+					input(id="input-submit" type='submit' value='Login')
