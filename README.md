@@ -1,7 +1,7 @@
-# elte_ik_chat
+# AnoChat
 
 
-Anonymous realtime chat app for ELTE IK students.
+Anonymous realtime chat app for general purposes.
 
 
 ## Getting started
