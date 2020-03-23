@@ -1,3 +1,71 @@
+:root {
+    --color-primary: #ffd61dd1;
+    --color-secondary: #28334AFF;
+    --color-black: #212529;
+}
+
 body {
-    background-color: pink;
+    font-family: 'Nunito', sans-serif;
+    color: var(--color-primary);
+}
+
+body .login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+body .login-wrapper .login-container {
+    background: var(--color-primary);
+    color: var(--color-black);
+    padding: 40px;
+    border-radius: 10px;
+    border: 1px solid var(--color-black);
+    /* display: flex;
+    flex-direction: column;
+    align-items: center; */
+}
+
+.login-container .title {
+    font-size: 3rem;
+}
+
+.login-container form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.login-container form .title {
+    text-align: center;
+}
+
+.login-container form input[name="nickname"] {
+    border-radius: 5px;
+    border: none;
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    margin: 20px;
+    /* background-color: var(--color-primary); */
+    /* transition: background-color 300ms linear; */
+    background-color: #364564;
+    color: var(--color-primary)
+}
+
+
+.login-container form input[name="nickname"]:focus {
+    outline: none;
+}
+.login-container form input[type='submit'] {
+    /* width: 100%; */
+    margin: 0 20px;
+    border: none;
+    background-color: var(--color-secondary);
+    color: var(--color-primary);
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    font-weight: 900;
 }
