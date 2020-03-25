@@ -1,2 +1,0 @@
-# Used colors
-$white : &fff;
