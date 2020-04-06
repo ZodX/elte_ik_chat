@@ -113,6 +113,7 @@ body {
     height: 10vh;
     display: flex;
     align-items: center;
+    transition: .3s;
 }
 
 .room-drawer:hover, 
@@ -156,13 +157,22 @@ i {
     transition: .3s;
 }
 
+i:hover {
+    color: red;
+    cursor: pointer;
+}
+
 i#users {
     transition: none;
 }
 
-i:hover {
-    color: red;
-    cursor: pointer;
+i#users:hover {
+    color: var(--color-primary);
+}
+
+i#roomButton:hover,
+i#newRoomButton:hover {
+    color: var(--color-primary);
 }
 
 .row-chat {
