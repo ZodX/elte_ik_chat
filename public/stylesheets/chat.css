@@ -1,3 +1,10 @@
+:root {
+    --color-primary: #ffd61dd1;
+    --color-secondary: #28334AFF;
+    --color-black: #212529;
+    --color-background: #f2eadc;
+}
+
 body {
     font-family: 'Courier New', Courier, monospace;
     width: 100%;
@@ -32,12 +39,13 @@ body {
 .row-rooms {
     width: 30vw;
     display: inline-block;
-    border-right: thin solid black;
+    border-right: thin solid var(--color-black);
+    background-color: #ffe2b1;
 }
 
 .title {
     height: 10%;
-    background-color: #ffd61dd1;
+    background-color: var(--color-primary);
     width: 100%;
     text-align: center;
     display: flex;
@@ -47,7 +55,7 @@ body {
 
 #title {
     height: 10%;
-    background-color: #ffd61dd1;
+    background-color: var(--color-primary);
     width: 100%;
     display: flex;
     justify-content: center;
@@ -69,13 +77,40 @@ body {
     height: 10%;
 }
 
+.newRoom {
+    height: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 2%;
+}
+
+.newRoomActivity {
+    height: 60%;
+    display: flex;
+    align-items: center;
+}
+
+#newRoomName {
+    height: 80%;
+    width: 70%;
+    margin-left: 10%;
+    border-radius: 7px;
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
+#newRoomButton {
+    width: 20%;
+    text-align: center;
+}
+
 .room-drawer,
 .user-drawer {
-    background-color: black;
-    color: limegreen;
+    background-color: var(--color-primary);
+    color: var(--color-secondary);
     height: 10vh;
     display: flex;
-    position: relative;
     align-items: center;
 }
 
@@ -89,14 +124,7 @@ body {
 .user-button {
     width: 20%;
     text-align: center;
-}
-
-#newRoomOption {
-    text-align: center;
-}
-
-#newRoom {
-    text-align: left;
+    display: flex;
 }
 
 .usersPanelOpener {
@@ -106,6 +134,7 @@ body {
     align-items: center;
     justify-content: center;
     transition: .3s;
+    background-color: var(--color-primary);
 }
 
 i#users {
@@ -148,9 +177,17 @@ i:hover {
 }
 
 .chat-bubble-left {
-    align-items: center;
-    justify-content: flex-start;
-    display: flex;
+    display: block;
+}
+
+#nickname {
+    font-size: small;
+    padding-left: 1%;
+    color: grey;
+}
+
+.contentContainer {
+    padding: 0;
 }
 
 .chat-bubble-right {
@@ -160,9 +197,9 @@ i:hover {
 
 .content {
     padding: 10px 14px;
-    background-color: #28334AFF;
-    color: #FBDE44FF;
-    margin: 10px 30px;
+    background-color: var(--color-secondary);
+    color: var(--color-primary);
+    margin: 0px 30px;
     border-radius: 9px;
     max-width: 30%;
     width: fit-content;
@@ -200,5 +237,6 @@ i:hover {
     width: 100%;
     border-radius: 7px;
     text-align: left;
-    padding-left: 5px;
+    padding-left: 1%;
+    padding-right: 1%;
 }
