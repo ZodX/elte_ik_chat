@@ -119,7 +119,6 @@ socket.on('image', (res) => {
     makeImageMessage(res.data);
 });
 
-
 function users() {
     socket.emit('users', {
         socketID: socket.id
@@ -229,11 +228,11 @@ function makeRooms() {
     rooms.innerHTML = "";
     for (var croom of availableRooms) {
         drawer = `
-        <div class="room-drawer">
-        <div class="room-name">${croom.name}</div>
-            <div class="room-button">
-            <i class="material-icons" onclick='room("${croom.name}","${nickname}")'>add_circle_outline</i>
-            </div>
+            <div class="room-drawer">
+                <div class="room-name">${croom.name}</div>
+                <div class="room-button">
+                    <i id="asd" class="material-icons" onclick='room("${croom.name}","${nickname}")'>add_circle_outline</i>
+                </div>
             </div>
         `;
         rooms.innerHTML += drawer;
@@ -281,16 +280,20 @@ function makeMessage() {
     const chat_panel = document.getElementsByClassName("chat-panel")[0];
     var msg = "";
     if (myPersonalID == puffer.personalID) {
+        //If the message is from the user.
         msg = `
         <div class="chat-bubble-right">
         <div class="content">${puffer.message}</div>
         </div>
         `;
     } else {
+        //If the message is from another user.
         msg = `
         <div class="chat-bubble-left">
-        <div id="nickname">${puffer.nickname}</div>
-        <div class="content">${puffer.message}</div>
+            <div id="nickname">${puffer.nickname}</div>
+            <div class="contentContainer">
+                <div class="content">${puffer.message}</div>
+            </div>
         </div>
         `;
     }
@@ -399,10 +402,14 @@ function drawUsers() {
                     <div class="user-drawer">
                         <div class="user-name">${cuser.nickname}</div>
                         <div class="user-button">
-                            <i class="material-icons">lock</i>
+                            <i class="material-icons" onclick="openPrivate()">lock</i>
                         </div>
                     </div>
                 `;
         users.innerHTML += drawer;
     }
 }
+
+/* function openPrivate() {
+    const 
+} */
