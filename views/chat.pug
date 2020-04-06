@@ -21,9 +21,11 @@ block content
 		div(class = "title") 
 			div(class="contentTitle") Available rooms
 		div(class = "newRoomCreation")
-			div(class = "newRoom") Create new room
-			input(id="newRoomName" placeholder="New room's name...")
-			i(class = "material-icons" onclick="newRoom()") add_circle_outline
+			div(class = "newRoom") 
+				div Create new room
+			div(class = "newRoomActivity")
+				input(id="newRoomName" placeholder="New room's name...")
+				i( id="newRoomButton" class = "material-icons" onclick="newRoom()") add_circle_outline
 		div(class = "rooms")
 		div(class = "users")
 		div(class="usersPanelOpener" onclick="changeList()") 
