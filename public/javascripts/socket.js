@@ -231,7 +231,7 @@ function makeRooms() {
             <div class="room-drawer">
                 <div class="room-name">${croom.name}</div>
                 <div class="room-button">
-                    <i id="asd" class="material-icons" onclick='room("${croom.name}","${nickname}")'>add_circle_outline</i>
+                    <i id="roomButton" class="material-icons" onclick='room("${croom.name}","${nickname}")'>add_circle_outline</i>
                 </div>
             </div>
         `;
