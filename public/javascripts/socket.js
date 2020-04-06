@@ -402,7 +402,7 @@ function drawUsers() {
                     <div class="user-drawer">
                         <div class="user-name">${cuser.nickname}</div>
                         <div class="user-button">
-                            <i class="material-icons" onclick="openPrivate()">lock</i>
+                            <i class="material-icons" onclick="alertUser()">lock</i>
                         </div>
                     </div>
                 `;
@@ -410,6 +410,6 @@ function drawUsers() {
     }
 }
 
-/* function openPrivate() {
+/* function alertUser() {
     const 
 } */
