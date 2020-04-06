@@ -1,6 +1,9 @@
 :root {
-    --color-primary: #ffd61dd1;
-    --color-secondary: #28334AFF;
+    /* --color-primary: #ffd61dd1; */
+    --color-primary: #ffc052;
+    --color-secondary: #ffcc73;
+    --color-blue: #28334AFF;
+    --color-bluecondary: rgb(66, 78, 104);
     --color-black: #212529;
     --color-background: #f2eadc;
 }
@@ -25,41 +28,33 @@ body {
     }
 }
 
-/* .container {
-    width: 100%;
-    height: 95vh;
-    border: thin solid black;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    border-radius: 7px;
-    box-shadow: grey;
-} */
-
 .row-rooms {
     width: 30vw;
     display: inline-block;
-    border-right: thin solid var(--color-black);
-    background-color: #ffe2b1;
+    background-color: var(--color-bluecondary);
 }
 
 .title {
     height: 10%;
-    background-color: var(--color-primary);
+    background-color: var(--color-blue);
+    color: var(--color-background);
     width: 100%;
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: xx-large;
 }
 
 #title {
     height: 10%;
-    background-color: var(--color-primary);
+    background-color: var(--color-blue);
+    color: var(--color-background);
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: xx-large;
 }
 
 .rooms {
@@ -69,12 +64,18 @@ body {
     height: 70%;
 }
 
+.users {
+    overflow-y: scroll;
+}
+
 #image {
     display: none;
 }
 
 .newRoomCreation {
     height: 10%;
+    background-color: var(--color-blue);
+    color: var(--color-background);
 }
 
 .newRoom {
@@ -107,11 +108,16 @@ body {
 
 .room-drawer,
 .user-drawer {
-    background-color: var(--color-primary);
-    color: var(--color-secondary);
+    background-color: var(--color-bluecondary);
+    color: var(--color-background);
     height: 10vh;
     display: flex;
     align-items: center;
+}
+
+.room-drawer:hover, 
+.user-drawer:hover {
+    background-color: rgb(99, 126, 185);
 }
 
 .room-name,
@@ -129,28 +135,29 @@ body {
 
 .usersPanelOpener {
     height: 10%;
-    border: thin solid black;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: .3s;
-    background-color: var(--color-primary);
-}
-
-i#users {
-    transition: none;
+    background-color: var(--color-blue);
+    color: var(--color-background);
 }
 
 .usersPanelOpener:hover {
-    background-color: #FBDE44FF;
-    color: red;
     cursor: pointer;
+    color: var(--color-primary);
+    background-color: rgb(99, 126, 185);
+    transition: .3s;
 }
 
 i {
     padding-left: 10px;
     padding-right: 10px;
     transition: .3s;
+}
+
+i#users {
+    transition: none;
 }
 
 i:hover {
@@ -197,7 +204,7 @@ i:hover {
 
 .content {
     padding: 10px 14px;
-    background-color: var(--color-secondary);
+    background-color: var(--color-blue);
     color: var(--color-primary);
     margin: 0px 30px;
     border-radius: 9px;
